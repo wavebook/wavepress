@@ -1,0 +1,210 @@
+/*
+Theme Name: Wavebook Demo
+Theme URI: https://demo.wavebook.io
+Description: Absolutte child theme.
+Author: Zachary Fogg
+Author URI: https://zfo.gg
+Template: absolutte
+Version: 1.5.0
+*/
+
+/* Parent stylesheet should be loaded from functions.php not using @import */
+
+
+.wpcf7>form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+.wpcf7>form>p:nth-child(2) {
+    max-width: 70%;
+    min-width: 10rem;
+}
+.wpcf7>form>p:nth-child(3) {
+    max-width: 12%;
+    min-width: 5rem;
+    width: 100%;
+    padding-top: 1.5rem;
+}
+.wpcf7>form>.wpcf7-response-output {
+    width: 100%;
+    margin: 0;
+    border: none;
+    text-align: center;
+}
+
+#main .page-header {
+    text-align: center;
+    margin-bottom: 0.8em;
+}
+#main .page-title {
+    background-color: transparent;
+}
+
+.home #main .wp-block-button__link {
+    width: 80%;
+}
+
+.uwp_page .uwp-content-wrap .uwp-profile {
+    width: 100%;
+    text-align: right;
+    float: none;
+}
+.uwp_page .uwp-content-wrap .uwp-profile-content {
+    margin: 0;
+    width: 100%;
+    float: none;
+}
+.uwp_generic_thumb_wrap,
+.uwp_page.page-id-138 .hentry .page-header,
+.uwp-profile-class .uwp-profile-entries > h3,
+#uwp-profile-posts .uwp-profile-tab-label.uwp-profile-posts-label {
+    display: none;
+}
+
+
+.flex-3-columns {
+    justify-content: center;
+}
+
+
+.text-color-1 { color: #019A9D; }
+.text-color-2 { color: #542437; }
+.text-color-3 { color: #E8045A; }
+.text-color-4 { color: #B2028A; }
+.text-color-5 { color: #2A0449; }
+.text-color-6 { color: #53777A; }
+
+.home #main #content h2 {
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+}
+.home #main #content .who-why {
+    font-size: 20px;
+}
+
+#main #content {
+    margin: 0 auto;
+}
+
+#header .absolutte-logo-wrap .site-title .ql_logo {
+    font-size: 3.2rem;
+    line-height: 3.2rem;
+    color: #019A9D;
+    z-index: 1;
+}
+#header .absolutte-logo-wrap #absolutte-nav-btn {
+  z-index: 2;
+  cursor: pointer;
+}
+#header .absolutte-logo-wrap .site-description {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+#header .menu .dropdown-toggle {
+  cursor: pointer;
+}
+
+
+html body {
+    background-color: gainsboro;
+    font-size: 23px;
+}
+#header.site-header, .footer-wrap,
+.page-header,
+.entry-content, .post-content,
+.page #content, .single #content {
+    background-color: whitesmoke;
+}
+
+#content .post-header .post-title {
+    background-color: unset;
+}
+
+.single #content .post {
+    padding: 1.5rem 0;
+}
+
+html, body, .absolutte-site-wrap {
+    height: 100%;
+}
+
+.absolutte-site-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+#main .page-header {
+    margin-bottom: 0;
+    padding: 2rem 0;
+}
+.page-header:before, .post-header:before {
+    bottom: 9px;
+}
+
+#main.site-main {
+    flex: 1;
+}
+
+.footer-wrap {
+    margin-top: 30px;
+    flex: 1;
+    max-height: 5rem;
+    overflow: unset;
+    position: unset;
+}
+
+.absolutte-blog-layout-4.blog #content .post,
+.absolutte-blog-layout-4.archive #content .post,
+.absolutte-blog-layout-4.search #content .post {
+    margin: 2rem 0;
+}
+.absolutte-blog-layout-4 #content .post .post-content {
+    padding: 2rem 3rem;
+}
+
+body.logged-in .logged-in-hide {
+    display: none;
+}
+
+body:not(.logged-in) .logged-out-hide {
+    display: none;
+}
+
+#header.site-header {
+    min-height: 7rem;
+    padding: 0;
+    flex: none;
+}
+
+.main-navigation ul {
+  background: transparent;
+}
+
+.main-navigation li.toggled-on>a {
+  color: #019a9d;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 575px) {
+  #header.site-header .absolutte-logo-wrap {
+    text-align: center;
+  }
+  #header.site-header .absolutte-main-nav-wrap {
+    padding-left: 2rem;
+    background-color: #dcdcdc;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+    .main-navigation ul li:hover > ul,
+    .main-navigation ul li.focus > ul {
+        left: auto;
+        right: 0;
+    }
+    #header.site-header .absolutte-logo-wrap {
+        margin-left: 5%;
+    }
+}

@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: http
+  creationTimestamp: null
+  generation: 1
+  name: ingress-local
+  selfLink: /apis/extensions/v1beta1/namespaces/kube-system/ingresses/ingress-local
+spec:
+  rules:
+  - host: kub.wavebook.local
+    http:
+      paths:
+      - backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 80
+        path: /
+status:
+  loadBalancer: {}

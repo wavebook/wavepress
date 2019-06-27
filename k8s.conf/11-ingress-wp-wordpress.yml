@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: http
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: 128m
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: wavebook-wp-wordpress
+    chart: wordpress-5.12.3
+    heritage: Tiller
+    release: wavebook-wp
+  name: wavebook-wp-wordpress
+  selfLink: /apis/extensions/v1beta1/namespaces/wavebook-alpha/ingresses/wavebook-wp-wordpress
+spec:
+  rules:
+  - host: demo.wavebook.local
+    http:
+      paths:
+      - backend:
+          serviceName: wavebook-wp-wordpress
+          servicePort: http
+        path: /
+status:
+  loadBalancer: {}

@@ -1,0 +1,134 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: wavebook-wp-wordpress
+    chart: wordpress-5.12.3
+    heritage: Tiller
+    release: wavebook-wp
+  name: wavebook-wp-wordpress
+  selfLink: /apis/apps/v1/namespaces/wavebook-alpha/deployments/wavebook-wp-wordpress
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: wavebook-wp-wordpress
+      release: wavebook-wp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: wavebook-wp-wordpress
+        chart: wordpress-5.12.3
+        release: wavebook-wp
+    spec:
+      containers:
+      - env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        - name: MARIADB_HOST
+          value: wavebook-wp-mariadb
+        - name: MARIADB_PORT_NUMBER
+          value: "3306"
+        - name: WORDPRESS_DATABASE_NAME
+          value: wavebook_wordpress
+        - name: WORDPRESS_DATABASE_USER
+          value: wb_wordpress
+        - name: WORDPRESS_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mariadb-password
+              name: wavebook-wp-mariadb
+        - name: WORDPRESS_USERNAME
+          value: admin
+        - name: WORDPRESS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: wordpress-password
+              name: wavebook-wp-wordpress
+        - name: WORDPRESS_EMAIL
+          value: hello@wavebook.io
+        - name: WORDPRESS_FIRST_NAME
+          value: Wave
+        - name: WORDPRESS_LAST_NAME
+          value: Book
+        - name: WORDPRESS_HTACCESS_OVERRIDE_NONE
+          value: "yes"
+        - name: WORDPRESS_BLOG_NAME
+          value: Wavebook
+        - name: WORDPRESS_SKIP_INSTALL
+          value: "no"
+        - name: WORDPRESS_TABLE_PREFIX
+          value: wp_
+        image: docker.io/bitnami/wordpress:5.2.1-debian-9-r9
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /wp-login.php
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: wordpress
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        - containerPort: 443
+          name: https
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /wp-login.php
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 300m
+            memory: 512Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /bitnami/wordpress
+          name: wordpress-data
+          subPath: wordpress
+        - mountPath: /bitnami/wordpress/wp-content/themes/demo-theme
+          name: wavepress
+          subPath: demo-theme
+      dnsPolicy: ClusterFirst
+      hostAliases:
+      - hostnames:
+        - status.localhost
+        ip: 127.0.0.1
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: wordpress-data
+        persistentVolumeClaim:
+          claimName: wavebook-wp-wordpress
+      - hostPath:
+          path: /wavepress
+          type: ""
+        name: wavepress
